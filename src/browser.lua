@@ -1,6 +1,15 @@
---config
+-- config
 port = 25565
 dnsserver = "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"-- address goes here
+
+-- theme
+topbarcolor = colors.blue
+textcolor = colors.white
+bgcolor = colors.black
+
+gpu.setPalleteColor(colors.blue,0x3324c0)
+gpu.setPalleteColor(colors.black,0x000000)
+gpu.setPalleteColor(colors.white,0xffffff)
 
 --import libs and initialise
 component = require("component")
@@ -21,23 +30,21 @@ term.setCursorBlink(false)
 ::labelhome::
 
 term.clear()
-gpu.setBackground(colors.blue,true)
-gpu.setForeground(colors.white,true)
+gpu.setBackground(topbarcolor,true)
+gpu.setForeground(textcolor,true)
 gpu.fill(1,1,80,2," ")
 gpu.set(1,1," " .. pagetitle)
 gpu.set(1,2," " .. pageaddress)
-gpu.setBackground(colors.black,true)
+gpu.setBackground(bgcolor,true)
 term.setCursor(1,3)
 print(" ")
 print(" Welcome to OC-Browser.")
 print(" ")
 print(" Ctrl + L - Search")
-print(" Ctrl + Alt + C - Exit")
+print(" Ctrl + W - Exit")
 print(" Ctrl + R - Refresh")
 print(" Ctrl + N - Home page")
-gpu.setForeground(colors.gray,true)
 gpu.set(2,24,"OC-Browser 1.0 / Made by daysant")
-gpu.setForeground(colors.white,true)
 
 ::labelinput::
 
@@ -65,12 +72,12 @@ goto labelinput
 :: labelsearch ::
 
 term.clear()
-gpu.setBackground(colors.blue,true)
-gpu.setForeground(colors.white,true)
+gpu.setBackground(topbarcolor,true)
+gpu.setForeground(textcolor,true)
 gpu.fill(1,1,80,2," ")
 gpu.set(1,1," Search")
 gpu.set(1,2," ocbrowser")
-gpu.setBackground(colors.black,true)
+gpu.setBackground(bgcolor,true)
 term.setCursor(1,3)
 print(" ")
 print(" Search")
@@ -88,12 +95,12 @@ modem.close(port)
 -- if server address is not found
 if serveraddress == "error-not-found" then
     term.clear()
-    gpu.setBackground(colors.blue,true)
-    gpu.setForeground(colors.white,true)
+    gpu.setBackground(topbarcolor,true)
+    gpu.setForeground(textcolor,true)
     gpu.fill(1,1,80,2," ")
     gpu.set(1,1," Error - Domain not found")
     gpu.set(1,2," ocbrowser")
-    gpu.setBackground(colors.black,true)
+    gpu.setBackground(bgcolor,true)
     term.setCursor(1,3)
     print(" ")
     print(" The server address could not be found.")
