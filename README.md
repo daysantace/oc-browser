@@ -30,9 +30,6 @@ Software needs a bit of setup before it is usable.
 Edit `browser.lua` to reflect the following:<br>
 * Port (defaults to `25565`)
 * DNS address
-##### Themes
-Additionally, you can have custom themes for your browser.<br>
-See `/themes` for more info.
 
 #### DNS Server
 Edit `dns.lua` to reflect the following:
@@ -43,3 +40,12 @@ Edit `dns.lua` to reflect the following:
 Edit `webserver.lua` to reflect the following:
 * Port (defaults to `25565`)
 * Webpage text (should be in a seperate file)
+
+
+### Customisation
+You can easily customise parts of OC-Browser to fit your needs.<br>
+To customise OC-Browser and its modules, simply go to the terminal and type `edit XXXXXX.lua`, with `XXXXXX` being the name of your module.<br>
+**NOTE** - Some areas of code are marked with `DNT` in their code comment. This stands for Do Not Touch. Try avoiding areas marked with `DNT` whenever possible.
+
+#### Browser
+In the browser you can customise your theme colours, home page, and shortcuts.
