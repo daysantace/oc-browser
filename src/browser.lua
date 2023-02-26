@@ -2,17 +2,7 @@
 port = 25565
 dnsserver = "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"-- address goes here
 
--- theme
-themename = "Default Dark"
-gpu.setPalleteColor(colors.blue,0x3324c0)
-gpu.setPalleteColor(colors.black,0x000000)
-gpu.setPalleteColor(colors.white,0xffffff)
-
-topbarcolor = colors.blue
-textcolor = colors.white
-bgcolor = colors.black
-
---import libs and initialise
+--import libs and initialise - DNT
 component = require("component")
 event = require("event")
 
@@ -24,6 +14,18 @@ term = require("term")
 
 gpu.setResolution(80,25)
 term.setCursorBlink(false)
+
+-- theme
+themename = "Default Dark"
+gpu.setPaletteColor(colors.blue,0x3349c0)
+gpu.setPaletteColor(colors.black,0x000000)
+gpu.setPaletteColor(colors.white,0xffffff)
+
+topbarcolor = colors.blue
+textcolor = colors.white
+bgcolor = colors.black
+
+-- define top bar - DNT
 
 function topbar(pagetitle,pageaddress)
     term.clear()
@@ -58,7 +60,7 @@ if keyboard.isControlDown() then
         goto labelhome
     end
     if keyboard.isKeyDown(keyboard.keys.w) then
-        gpu.fill(1, 1, 80, 25, " ")
+        term.clear()
         os.exit()
     end
     if keyboard.isKeyDown(keyboard.keys.r) then
@@ -72,7 +74,7 @@ end
 os.sleep(0.1)
 
 goto labelinput
--- search
+-- search - DNT
 :: labelsearch ::
 
 topbar("Search","ocbrowser")
@@ -80,16 +82,21 @@ print(" ")
 print(" Search")
 print(" ")
 search = io.read()
+print(" ")
 
--- get server address
+-- get server address - DNT
 modem.open(port)
+print(" Port opened")
 modem.send(dnsserver,port,"search-" .. search)
+print(" Search query sent")
 _,_,_,_,_,serveraddress = event.pull("modem_message")
+print(" DNS message received")
 modem.close(port)
+print(" Port closed")
 
 :: labelloadpage ::
 
--- if server address is not found
+-- if server address is not found - DNT
 if serveraddress == "error-not-found" then
     topbar("Error","ocbrowser")
     print(" ")
@@ -97,12 +104,17 @@ if serveraddress == "error-not-found" then
     print(" Ensure you typed in the address correctly.")
     print(" If it does not work, the server may be down or have moved.")
 else
-    -- request page content
+    -- request page content - DNT
     modem.open(port)
+    print(" Webserver port opened")
     modem.send(serveraddress,port,"req-content")
+    print(" Requested page content")
     _,_,_,_,_,pagecontent = event.pull("modem_message")
+    print(" Page content received")
     modem.close(port)
-    -- process content
+    print(" Webserver port closed")
+    -- process content - DNT
+    print(" Processing page content")
 end
 
 goto labelinput
