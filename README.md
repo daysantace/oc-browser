@@ -30,7 +30,7 @@ Software needs a bit of setup before it is usable.
 Edit `browser.lua` to reflect the following:<br>
 * Port (defaults to `25565`)
 * DNS address
-
+* Theme (go to `/themes` for info)
 #### DNS Server
 Edit `dns.lua` to reflect the following:
 * Port (defaults to `25565`)
