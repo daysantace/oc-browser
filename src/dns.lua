@@ -12,34 +12,38 @@ print("DNS Server Beta / Made by daysant")
 print(" ")
 
 -- list of servers
-d1 = {"domain","webserver-address"} -- example, delete once webservers are up
+domains = {"domain"}
+addresses = {"address"}
+--[[
+    the ones given here are examples, delete once used
+    the two lists correspond, i.e. domain no. 4 will mean the 4th index
+    used in both domains and addresses
+--]]
 
+domainlistlen = 1 -- make this value the number of registered domains or it won't work
 -- network to the browser - DNT
 print("DNS list loaded")
 while true do
-    ::labelnetstart::
     print("Main loop started")
+    ::labelnetstart::
     modem.open(port)
     print("Port opened")
-    _,_,sender,_,_,message = event.pull("modem_message")
-    print("Message from " .. sender " received")
-    if string.sub(message,1,7) == "search-" then
-        req_address = string.sub(message,7,string.len(message))
-    end
-    print("Request from " .. sender .. " complete")
-
-    i = 1
-    while _G[v][1] ~= req_address do -- credit to allister on stackoverflow
-        local v = "d" .. tostring(i)
-        checkaddr = (_G[v][1])
-        i=i+1
-        if v == nil then
-            goto labelerrnotfound
-        end
-    end
+    _,_,sender,_,_,_,message = event.pull("modem_message")
+    print("Message from " .. sender .. " received")
+    print("Request for " .. message)
     print("Search database for " .. sender .. " complete")
 
-    sendaddr = _G[v][2]
+    for i, v in ipairs(domains) do -- courtesy of chatgpt
+        if v == message then
+            sendaddr = addresses[i]
+            goto loopesc
+        end
+    end
+    modem.send(sender,port,"error-not-found")
+
+    goto labelnetstart
+
+    ::loopesc::
     modem.send(sender,port,sendaddr)
 
     goto labelnetstart

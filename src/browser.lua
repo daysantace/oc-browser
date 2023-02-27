@@ -1,6 +1,6 @@
 -- config
 port = 25565
-dnsserver = "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"-- address goes here
+dnsserver = "xxxxxxxx-xxxx" -- network card address, NOT case address
 
 --import libs and initialise - DNT
 component = require("component")
@@ -17,12 +17,21 @@ term.setCursorBlink(false)
 
 -- theme
 themename = "Default Dark"
+
 gpu.setPaletteColor(colors.blue,0x3349c0)
+gpu.setPaletteColor(colors.red,0xcc0000)
+gpu.setPaletteColor(colors.green,0x00db00)
+gpu.setPaletteColor(colors.yellow,0xffff00)
+gpu.setPaletteColor(colors.magenta,0xff24c0)
+gpu.setPaletteColor(colors.cyan,0x00b6ff)
 gpu.setPaletteColor(colors.black,0x000000)
+gpu.setPaletteColor(colors.gray,0x3c3c3c)
+gpu.setPaletteColor(colors.silver,0xa5a5a5)
 gpu.setPaletteColor(colors.white,0xffffff)
 
 topbarcolor = colors.blue
 textcolor = colors.white
+logcolor = colors.gray
 bgcolor = colors.black
 
 -- define top bar - DNT
@@ -37,6 +46,12 @@ function topbar(pagetitle,pageaddress)
     gpu.setBackground(bgcolor,true)
     term.setCursor(1,3)
     return
+end
+
+function printlog(str)
+    gpu.setForeground(logcolor,true)
+    print(str)
+    gpu.setForeground(textcolor,true)
 end
 
 -- welcome screen
@@ -86,15 +101,16 @@ print(" ")
 
 -- get server address - DNT
 modem.open(port)
-print(" Port opened")
-modem.send(dnsserver,port,"search-" .. search)
-print(" Search query sent")
-_,_,_,_,_,serveraddress = event.pull("modem_message")
-print(" DNS message received")
+printlog(" DNS port opened")
+modem.send(dnsserver,port,search)
+printlog(" Search query sent")
+_,_,_,_,_,_,serveraddress = event.pull("modem_message")
+printlog(" DNS message received")
 modem.close(port)
-print(" Port closed")
+printlog(" DNS port closed")
 
 :: labelloadpage ::
+printlog(" Address is " .. serveraddress)
 
 -- if server address is not found - DNT
 if serveraddress == "error-not-found" then
@@ -106,15 +122,15 @@ if serveraddress == "error-not-found" then
 else
     -- request page content - DNT
     modem.open(port)
-    print(" Webserver port opened")
+    printlog(" Webserver port opened")
     modem.send(serveraddress,port,"req-content")
-    print(" Requested page content")
-    _,_,_,_,_,pagecontent = event.pull("modem_message")
-    print(" Page content received")
+    printlog(" Requested page content")
+    _,_,_,_,_,_,pagecontent = event.pull("modem_message")
+    printlog(" Page content received")
     modem.close(port)
-    print(" Webserver port closed")
+    printlog(" Webserver port closed")
     -- process content - DNT
-    print(" Processing page content")
+    printlog(" Processing page content")
 end
 
 goto labelinput
