@@ -1,3 +1,5 @@
+::labelhome::
+
 -- config
 port = 25565
 dnsserver = "xxxxxxxx-xxxx" -- network card address, NOT case address
@@ -61,16 +63,12 @@ function setpixel(pixx,pixy,color)
 end
 
 -- welcome screen
-::labelhome::
 topbar("Home screen","ocbrowser")
 print(" ")
 print(" Welcome to OC-Browser.")
 print(" ")
 print(" Ctrl + L - Search")
 print(" Ctrl + W - Exit")
-print(" Ctrl + R - Refresh")
-print(" Ctrl + N - Home page")
-print(" ")
 
 gpu.set(2,22,"Using theme " .. themename)
 gpu.set(2,24,"OC-Browser Beta / Made by daysant")
@@ -79,15 +77,9 @@ gpu.set(2,24,"OC-Browser Beta / Made by daysant")
 
 -- get user input
 if keyboard.isControlDown() then
-    if keyboard.isKeyDown(keyboard.keys.n) then
-        goto labelhome
-    end
     if keyboard.isKeyDown(keyboard.keys.w) then
         term.clear()
         os.exit()
-    end
-    if keyboard.isKeyDown(keyboard.keys.r) then
-        goto labelloadpage
     end
     if keyboard.isKeyDown(keyboard.keys.l) then
         goto labelsearch
@@ -107,12 +99,12 @@ print(" ")
 search = io.read()
 print(" ")
 
--- get server address - DNT
+-- get server address
 modem.open(port)
 printlog(" DNS port opened")
 modem.send(dnsserver,port,search)
 printlog(" Search query sent")
-_,_,_,_,_,_,serveraddress = event.pull("modem_message")
+_,_,_,_,_,serveraddress,_ = event.pull("modem_message")
 printlog(" DNS message received")
 modem.close(port)
 printlog(" DNS port closed")
@@ -120,25 +112,54 @@ printlog(" DNS port closed")
 :: labelloadpage ::
 printlog(" Address is " .. serveraddress)
 
--- if server address is not found - DNT
+-- if server address is not found
 if serveraddress == "error-not-found" then
     topbar("Error","ocbrowser")
     print(" ")
-    print(" The server address could not be found.")
-    print(" Ensure you typed in the address correctly.")
+    print(" The webserver could not be found.")
+    print(" Ensure you typed in the domain correctly.")
     print(" If it does not work, the server may be down or have moved.")
 else
-    -- request page content - DNT
+    -- request page content
     modem.open(port)
     printlog(" Webserver port opened")
     modem.send(serveraddress,port,"req-content")
     printlog(" Requested page content")
-    _,_,_,_,_,_,pagecontent = event.pull("modem_message")
+    _,_,_,_,_,pagecontent,_ = event.pull("modem_message")
     printlog(" Page content received")
     modem.close(port)
     printlog(" Webserver port closed")
-    -- process content - DNT
+
+    -- process content
     printlog(" Processing page content")
+
+    --- NONE OF THIS IS MINE ---
+    function split_string(input_string, separator)
+        local separator_pattern = separator
+        local result = {}
+        local pattern = "(.-)" .. separator_pattern .. "()"
+        local last_position = 1
+        for part, position in input_string:gmatch(pattern) do
+            if part ~= separator then
+                table.insert(result, part)
+            end
+            last_position = position
+        end
+        local last_part = input_string:sub(last_position)
+        if last_part ~= separator then
+            table.insert(result, last_part)
+        end
+        return result
+    end
+    ---       endquote        ---
+
+    finresult = split_string(pagecontent,"<br>")
+
+    -- display page
+    topbar("OC-Browser",search)
+    for i, printtext in ipairs(finresult) do
+        print(printtext)
+    end
 end
 
 goto labelinput

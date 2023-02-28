@@ -33,23 +33,29 @@ while true do
     print("Request for " .. message)
     print("Search database for " .. sender .. " complete")
 
+    -- find what index domain is at
     for i, v in ipairs(domains) do -- courtesy of chatgpt
         if v == message then
             sendaddr = addresses[i]
             goto loopesc
         end
     end
+
+    -- domain not found
     modem.send(sender,port,"error-not-found")
 
     goto labelnetstart
-
     ::loopesc::
-    modem.send(sender,port,sendaddr)
 
+    -- domain in fact found
+    modem.send(sender,port,sendaddr)
     goto labelnetstart
 
+    -- cont. domain not found
     ::labelerrnotfound::
     modem.send(sender,port,"error-not-found")
     print("Error message sent back to " .. sender)
-    os.sleep(0.1)
+
+    os.sleep(0.1) -- DO NOT REMOVE
+    -- program crashes when this is removed and idk why
 end
