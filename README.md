@@ -5,6 +5,7 @@ Browsing software using in-game webservers.
 To install, run the following command on your terminal of choice.<br>
 ```wget https://raw.githubusercontent.com/daysantace/oc-browser/main/src/XXXXX.lua```
 Replace `XXXXX` with your preferred module (i.e. if you want to install the browser, type `browser`). <br>
+Alternatively, you can use a physical medium (like a floppy disk) with the code written on it, or copy and paste the code manually.
 
 ### System requirements
 Ensure your system meets the requirements before installation.<br>
