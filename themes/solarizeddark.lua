@@ -1,7 +1,7 @@
 themename = "Solarized Dark"
 
 gpu.setPaletteColor(colors.blue,0x268bd2)
-gpu.setPaletteColor(colors.red,dc322f)
+gpu.setPaletteColor(colors.red,0xdc322f)
 gpu.setPaletteColor(colors.green,0x859900)
 gpu.setPaletteColor(colors.yellow,0xb58900)
 gpu.setPaletteColor(colors.magenta,0xd33682)
