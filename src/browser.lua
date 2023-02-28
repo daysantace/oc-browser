@@ -34,7 +34,7 @@ textcolor = colors.white
 logcolor = colors.gray
 bgcolor = colors.black
 
--- define top bar - DNT
+-- functions - DNT
 
 function topbar(pagetitle,pageaddress)
     term.clear()
@@ -54,6 +54,12 @@ function printlog(str)
     gpu.setForeground(textcolor,true)
 end
 
+function setpixel(pixx,pixy,color)
+    gpu.setBackground(color)
+    gpu.fill(pixx,pixy,pixx,pixy," ")
+    gpu.setBackground(bgcolor)
+end
+
 -- welcome screen
 ::labelhome::
 topbar("Home screen","ocbrowser")
@@ -65,7 +71,8 @@ print(" Ctrl + W - Exit")
 print(" Ctrl + R - Refresh")
 print(" Ctrl + N - Home page")
 print(" ")
-gpu.set(2,23,"Using theme " .. themename)
+
+gpu.set(2,22,"Using theme " .. themename)
 gpu.set(2,24,"OC-Browser Beta / Made by daysant")
 
 ::labelinput::
