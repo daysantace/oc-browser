@@ -3,4 +3,4 @@ Themes are a great way to customise your browser.
 
 ## Installation
 You can edit the file directly and make your own theme.<br>
-Simply copy one of the regions of the text files and replace the themes region with it.
+Simply copy the matching file into the same directory as the browser, and edit the file's name to `theme.lua`.
