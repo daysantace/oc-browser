@@ -56,12 +56,6 @@ function printlog(str)
     gpu.setForeground(textcolor,true)
 end
 
-function setpixel(pixx,pixy,color)
-    gpu.setBackground(color)
-    gpu.fill(pixx,pixy,pixx,pixy," ")
-    gpu.setBackground(bgcolor)
-end
-
 -- welcome screen
 topbar("Home screen","ocbrowser")
 print(" ")
@@ -71,7 +65,7 @@ print(" Ctrl + L - Search")
 print(" Ctrl + W - Exit")
 
 gpu.set(2,22,"Using theme " .. themename)
-gpu.set(2,24,"OC-Browser Beta / Made by daysant")
+gpu.set(2,24,"OC-Browser 1.0 / Made by daysant")
 
 ::labelinput::
 

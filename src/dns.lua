@@ -8,7 +8,7 @@ term = require("term")
 os = require("os")
 
 modem = component.modem
-print("DNS Server Beta / Made by daysant")
+print("OC-Browser DNS Server 1.0 / Made by daysant")
 print(" ")
 
 -- list of servers
@@ -18,9 +18,10 @@ addresses = {"address"}
     the ones given here are examples, delete once used
     the two lists correspond, i.e. domain no. 4 will mean the 4th index
     used in both domains and addresses
+
+    remember to put the address of the network card, not the case
 --]]
 
-domainlistlen = 1 -- make this value the number of registered domains or it won't work
 -- network to the browser - DNT
 print("DNS list loaded")
 while true do

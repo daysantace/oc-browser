@@ -9,7 +9,7 @@ os = require("os")
 
 modem = component.modem
 
-print("Webserver Beta / Made by daysant")
+print("OC-Browser Webserver 1.0 / Made by daysant")
 print(" ")
 print("Main loop started")
 modem.open(port)
