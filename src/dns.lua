@@ -29,7 +29,7 @@ while true do
     ::labelnetstart::
     modem.open(port)
     print("Port opened")
-    _,_,sender,_,_,_,message = event.pull("modem_message")
+    _,_,sender,_,_,message,_ = event.pull("modem_message")
     print("Message from " .. sender .. " received")
     print("Request for " .. message)
     print("Search database for " .. sender .. " complete")
@@ -57,6 +57,5 @@ while true do
     modem.send(sender,port,"error-not-found")
     print("Error message sent back to " .. sender)
 
-    os.sleep(0.1) -- DO NOT REMOVE
-    -- program crashes when this is removed and idk why
+    os.sleep(0.1) -- program crashes when this is removed and idk why
 end
