@@ -10,6 +10,8 @@ event = require("event")
 
 modem = component.modem
 gpu = component.gpu
+data = component.data
+
 colors = require("colors")
 keyboard = require("keyboard")
 term = require("term")
@@ -65,7 +67,7 @@ print(" Ctrl + L - Search")
 print(" Ctrl + W - Exit")
 
 gpu.set(2,22,"Using theme " .. themename)
-gpu.set(2,24,"OC-Browser 1.0 / Made by daysant")
+gpu.set(2,24,"OC-Browser 1.1-sn1 / Made by daysant")
 
 ::labelinput::
 
@@ -119,10 +121,12 @@ else
     printlog(" Webserver port opened")
     modem.send(serveraddress,port,"req-content")
     printlog(" Requested page content")
-    _,_,_,_,_,pagecontent,_ = event.pull("modem_message")
+    _,_,_,_,_,compedpagecontent,_ = event.pull("modem_message")
     printlog(" Page content received")
     modem.close(port)
     printlog(" Webserver port closed")
+    pagecontent = data.deflate(compedpagecontent)
+    printlog(" Decompressed data")
 
     -- process content
     printlog(" Processing page content")
@@ -145,7 +149,7 @@ else
         end
         return result
     end
-    ---       endquote        ---
+    ---       endquote       ---
 
     finresult = split_string(pagecontent,"<br>")
 

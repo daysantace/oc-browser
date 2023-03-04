@@ -10,20 +10,13 @@ Alternatively, you can use a physical medium (like a floppy disk) with the code 
 ### System requirements
 Ensure your system meets the requirements before installation.<br>
 
-#### Browser and Webserver
-* GPU - Tier 2
-* Screen - Tier 2
-* Network card - Wired or wireless
-* Case - Tier 2
-* OS - OpenOS
-
-#### DNS Server
-* GPU - Tier 1
-* Screen - Tier 1
-* Network card - Wired or wireless
-* Case - Tier 1
-* OS - OpenOS
-
+| Program | Browser | Webserver | DNS Server |
+|---|---|---|---|
+| CPU | Tier 2 | Tier 1 | Tier 1 |
+| GPU | Tier 2 | Tier 1 | Tier 1 |
+| Network | Wired | Wired | Wired |
+| Data card | Tier 1 | Tier 1 | Not needed |
+| Screen | Tier 2 | Tier 1 | Tier 1 |
 ### Setup
 Software needs a bit of setup before it is usable.
 
@@ -58,6 +51,7 @@ This list is not marked by order of priority.
 
 - [x] Basic networking
 - [x] Themes
+- [ ] Compression
 - [ ] Colour support
 - [ ] Hyperlink support
 - [ ] Multiple pages on one server

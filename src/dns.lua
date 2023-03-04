@@ -29,7 +29,7 @@ while true do
     ::labelnetstart::
     modem.open(port)
     print("Port opened")
-    _,_,sender,_,_,_,message = event.pull("modem_message")
+    _,_,sender,_,_,message,_ = event.pull("modem_message")
     print("Message from " .. sender .. " received")
     print("Request for " .. message)
     print("Search database for " .. sender .. " complete")

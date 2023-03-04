@@ -8,6 +8,7 @@ term = require("term")
 os = require("os")
 
 modem = component.modem
+data = component.data
 
 print("OC-Browser Webserver 1.0 / Made by daysant")
 print(" ")
@@ -27,5 +28,8 @@ while true do
     end
     print("File loaded")
 
-    modem.send(sender,port,netmsg)
+    compednetmsg = data.deflate(netmsg)
+    print("Data compressed")
+    modem.send(sender,port,compednetmsg)
+    print("Message sent")
 end
