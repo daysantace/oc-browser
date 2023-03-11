@@ -10,7 +10,7 @@ os = require("os")
 modem = component.modem
 data = component.data
 
-print("OC-Browser Webserver 1.0 / Made by daysant")
+print("OC-Browser Webserver 1.1-sn1 / Made by daysant")
 print(" ")
 print("Main loop started")
 modem.open(port)
@@ -32,4 +32,36 @@ while true do
     print("Data compressed")
     modem.send(sender,port,compednetmsg)
     print("Message sent")
+
+    -- load foreground colours
+    print("Loading foreground colour map")
+    cmap = {}
+    for line in io.lines("/home/fcmap.txt")
+        t = {}
+        for i = 1, #line do
+            t[i] = line:sub(i, i)
+        end
+        table.insert(cmap,t)
+    end
+    fcmapserialised = serialization.serialize(cmap)
+
+    -- load background colours
+    print("Loading foreground colour map")
+    cmap = {}
+    for line in io.lines("/home/bcmap.txt")
+        t = {}
+        for i = 1, #line do
+            t[i] = line:sub(i, i)
+        end
+        table.insert(cmap,t)
+    end
+    bcmapserialised = serialization.serialize(cmap)
+
+    -- send serialised and then reset colour maps
+    modem.send(sender,port,fcmapserialised)
+    modem.send(sender,port,bcmapserialised)
+
+    fcmapserialised = nil
+    bcmapserialised = nil
+    cmap = nil
 end

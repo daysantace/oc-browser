@@ -125,7 +125,7 @@ else
     printlog(" Page content received")
     modem.close(port)
     printlog(" Webserver port closed")
-    pagecontent = data.deflate(compedpagecontent)
+    pagecontent = data.inflate(compedpagecontent)
     printlog(" Decompressed data")
 
     -- process content
@@ -141,7 +141,7 @@ else
             if part ~= separator then
                 table.insert(result, part)
             end
-            last_position = position
+            last_position = positionx
         end
         local last_part = input_string:sub(last_position)
         if last_part ~= separator then
@@ -158,6 +158,9 @@ else
     for i, printtext in ipairs(finresult) do
         print(printtext)
     end
+
+    -- get colour
+
 end
 
 goto labelinput
